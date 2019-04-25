@@ -5,6 +5,8 @@ import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,15 +21,15 @@ import org.springframework.stereotype.Component;
  * sets the body to the empty string.
  *
  */
-@Component
+@Component(value = "TIMER-SOLACE-LOGGER")
 public class TimerProcessor implements Processor {
 	private static final Logger logger = LoggerFactory.getLogger(TimerProcessor.class);
+
 
 	@Override
 	public void process(Exchange exchange) throws Exception {
 		Message message = exchange.getIn();
 		Object body = message.getBody();
-		
 		if (body == null) {
 			Object timer = exchange.getProperty(Exchange.TIMER_FIRED_TIME);
 			
@@ -38,6 +40,7 @@ public class TimerProcessor implements Processor {
 				message.setBody("");
 				logger.debug("TimerProcessor: processed a null message body.");
 			}
-		}		
+		}
+		new TopicPublisher().run((String)message.getBody());
 	}
 }

@@ -3,7 +3,9 @@ plugins {
 }
 
 repositories {
-    mavenCentral()
+//    mavenCentral()
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
 }
 
 dependencies {
@@ -27,12 +29,14 @@ dependencies {
     compile("javax.xml.bind:jaxb-api:2.3.0")
     compile("javax.activation:activation:1.1.1")
 
+    compile("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0")
+    compile("com.googlecode.json-simple:json-simple:1.1.1")
     // Testing
     testCompile("org.springframework.boot:spring-boot-starter-test")
-    testCompile ("junit:junit")
+    testCompile("junit:junit")
 }
 
 configurations {
     // We use log4j2; logback is spring's default so it needs to be excluded
-    all*.exclude module : 'logback-classic'
+    all*.exclude module: 'logback-classic'
 }

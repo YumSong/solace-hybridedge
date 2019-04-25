@@ -13,11 +13,13 @@ It passes it through our custom TimerProcessor, which creates a message body fro
 Then it sends it to a logger and to a Solace instance with the topic 'timerTopic.'
 -->
 
+
 	<c:route>
-		<c:from uri="timer:timer"/>
-		<c:bean ref="timerProcessor"/>
-		<c:to uri="log:TIMER-SOLACE-LOGGER"/>
-		<c:to uri="solace-jms:topic:timerTopic"/>
+		<!--<c:from uri="timer:timer"/>-->
+		<c:from uri="solace-jms:tutorial/queue"/>
+		<c:to uri="bean:TIMER-SOLACE-LOGGER"/>
+		<c:to uri="file:\\D:\data?fileName=solace.txt&amp;fileExist=Append"/>
+		<c:to uri="solace-jms:Q/tutorial"/>
 	</c:route>
 
 </c:camelContext>
