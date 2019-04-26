@@ -8,7 +8,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class TopicPublisher {
     public void run(String content) throws MqttException {
         System.out.println("TopicPublisher initializing...");
-
+        System.out.println("tony mqtt publisher.............................................................");
         String host = "tcp://localhost:8888";
         String username = "default";
         String password = "default";
